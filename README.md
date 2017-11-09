@@ -1,11 +1,16 @@
-Aerospike Prometheus exporter
+# Aerospike exporter for Prometheus (Docker)
+This is a docker version of Aerospike exporter for Prometheus.
 
-This follows the logic from [asgraphite](https://github.com/aerospike/aerospike-graphite). Run a `asprom` collector against every node in the aerospike cluster.
+It's a docker wrapper of [alicebob/asprom](https://github.com/alicebob/asprom)
 
-Statistics collected:
+Using base image：[golang](https://hub.docker.com/_/golang/)
 
-  * aerospike_node_*: node wide statistics. e.g. memory usage, cluster state.
-  * aerospike_ns_*: per namespace. e.g. objects, migrations.
-  * aerospike_sets_*: statistics per set: objects, memory usage
-  * aerospike_latency_*: read/write/etc latency rates(!), per namespace
-  * aerospike_ops_*: read/write/etc ops per second, per namespace
+## Usage
+
+Default will fetch aerospike data from `127.0.0.1:3000` and export metrics on `port: 9145`
+
+`docker run --net=host --name aerospike_exporter ysde/aerospike_exporter `
+
+or specify the address and port you want to listen and export to
+
+`docker run --name aerospike_exporter ysde/aerospike_exporter -listen :9999 -node 10.x.x.x`
